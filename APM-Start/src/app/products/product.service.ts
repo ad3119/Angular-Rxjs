@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, tap, map, scan } from 'rxjs/operators';
+import { catchError, tap, map, scan, shareReplay } from 'rxjs/operators';
 import { Product } from './product';
 import { SupplierService } from '../suppliers/supplier.service';
 import { throwError, combineLatest, BehaviorSubject, Subject, merge } from 'rxjs';
@@ -37,16 +37,15 @@ export class ProductService {
     this.productCategoryService.productCategories$
   ]).pipe(
     map(([products, categories]) => 
-      {
-        return products.
+         products.
           map(product => ({
             ...product,
             price: product.price * 1.5,
             category: categories.find(c => product.categoryId === c.id).name,
             searhKey: [product.productName]
-          }) as Product);
-      }
-    )
+          }) as Product)
+    ),
+    shareReplay(1)
   );
 
   selectedproducts$ = combineLatest([
@@ -57,7 +56,8 @@ export class ProductService {
       map(([products, selectedproduct]) => 
         products.find(product => product.id === selectedproduct)
         ),
-      tap(product => console.log('Selected ', product))
+      tap(product => console.log('Selected ', product)),
+      shareReplay(1)
   );
 
   setSelectedProductSubject(categoryId: number) {

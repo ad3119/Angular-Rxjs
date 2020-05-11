@@ -5,7 +5,7 @@ import { throwError } from 'rxjs';
 
 import { ProductCategory } from './product-category';
 import { ProductCategoryData } from './product-category-data';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, tap, shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class ProductCategoryService {
   productCategories$ = this.http.get<ProductCategory[]>(this.productCategoriesUrl)
   .pipe(
     tap(data => console.log('Categories', JSON.stringify(data))),
+    shareReplay(1),
     catchError(this.handleError)
   )
 

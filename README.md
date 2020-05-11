@@ -1,5 +1,4 @@
-# Angular-RxJS
-Find the associated Pluralsight course here: https://app.pluralsight.com/library/courses/rxjs-angular-reactive-development
+# Angular-RxJs
 
 `APM-Start`: The starter files for the course. **Use this to code along with the course**.
 
@@ -7,4 +6,3 @@ Find the associated Pluralsight course here: https://app.pluralsight.com/library
 
 `APM-WithExtras`: The completed files with some extra code. Use this to see some additional techniques not included in the course.
 
-I've developed a few additional examples, including using action streams to "pass" parameters and retrieving multiple related datasets here: https://stackblitz.com/edit/angular-todos-deborahk
